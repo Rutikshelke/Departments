@@ -11,7 +11,7 @@ public class HelloController {
         return "welcome to daily code buffer sunny leone is not only actor" ;
     }
 
-
+    @GetMapping("/hello")
     public String sayHello(){
         return "hello user!";
     }
