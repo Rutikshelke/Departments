@@ -10,4 +10,9 @@ public class HelloController {
     public String HelloWorld(){
         return "welcome to daily code buffer sunny leone is not only actor" ;
     }
+
+
+    public String sayHello(){
+        return "hello user!";
+    }
 }
