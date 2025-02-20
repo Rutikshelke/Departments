@@ -1,7 +1,9 @@
 package com.dailycodebuffer.springboot.tutorial.Implementation;
 
 import com.dailycodebuffer.springboot.tutorial.Entity.Department;
+import com.dailycodebuffer.springboot.tutorial.Entity.Employee;
 import com.dailycodebuffer.springboot.tutorial.Repository.DepartmentRepository;
+import com.dailycodebuffer.springboot.tutorial.Repository.EmployeeRepository;
 import com.dailycodebuffer.springboot.tutorial.error.DepartmentNotFoundException;
 import com.dailycodebuffer.springboot.tutorial.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,9 @@ import java.util.Optional;
 public class DepartmentServiceImpl implements DepartmentService {
     @Autowired
     private DepartmentRepository departmentRepository;
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
 
     @Override
     public Department saveDepartment(Department department) {
@@ -27,39 +32,49 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Department fetchDepartmentById(Long departmentId) throws DepartmentNotFoundException {
-        Optional<Department>department= departmentRepository.findById(departmentId);
+    public Department fetchDepartmentById(Long id) throws DepartmentNotFoundException {
+        Optional<Department> department = departmentRepository.findById(id);
         if (!department.isPresent()) {
             throw new DepartmentNotFoundException(" Department not available");
-        }return  department.get();
+        }
+        Department dept = department.get();
+        return dept;
     }
 
     @Override
-    public void deleteDepartmentById(Long departmentId) {
-        departmentRepository.deleteById(departmentId);
+    public void deleteDepartmentById(Long id) {
+        departmentRepository.deleteById(id);
     }
 
     @Override
-    public Department updateDepartmentById(Long departmentId, Department department) {
-        Department depDB = departmentRepository.findById(departmentId).get();
-        if (Objects.nonNull(department.getDepartmentName()) &&
-                !"".equalsIgnoreCase(department.getDepartmentName())) {
-            depDB.setDepartmentName(department.getDepartmentName());
+    public Department updateDepartmentById(Long id, Department department) {
+        Department depDB = departmentRepository.findById(id).get();
+        if (Objects.nonNull(department.getName()) &&
+                !"".equalsIgnoreCase(department.getName())) {
+            depDB.setName(department.getName());
         }
-        if (Objects.nonNull(department.getDepartmentCode()) &&
-                !"".equalsIgnoreCase(department.getDepartmentCode())) {
-            depDB.setDepartmentCode(department.getDepartmentCode());
+        if (Objects.nonNull(department.getCode()) &&
+                !"".equalsIgnoreCase(department.getCode())) {
+            depDB.setCode(department.getCode());
         }
-        if (Objects.nonNull(department.getDepartmentAddress()) &&
-                !"".equalsIgnoreCase(department.getDepartmentAddress())) {
-            depDB.setDepartmentAddress(department.getDepartmentAddress());
+        if (Objects.nonNull(department.getAddress()) &&
+                !"".equalsIgnoreCase(department.getAddress())) {
+            depDB.setAddress(department.getAddress());
+        }
+        if (Objects.nonNull(department.getName()) && !department.getName().trim().isEmpty()) {
+            depDB.setName(department.getName());
         }
         return departmentRepository.save(depDB);
     }
 
+
+
+
     @Override
-    public Department fetchDepartmentByName(String departmentName) {
-        return departmentRepository.findByDepartmentName(departmentName);
+    public Department fetchDepartmentByDepartmentCode(String code) {
+
+
+        return departmentRepository.findByCode(code);
     }
 
 }

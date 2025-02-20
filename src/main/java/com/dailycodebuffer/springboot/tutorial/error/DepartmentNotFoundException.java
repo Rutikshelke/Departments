@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 public class DepartmentNotFoundException extends Exception{
 
     public DepartmentNotFoundException() {
-        super();
     }
 
     public DepartmentNotFoundException(String message) {
@@ -19,10 +18,6 @@ public class DepartmentNotFoundException extends Exception{
 
     public DepartmentNotFoundException(Throwable cause) {
         super(cause);
-    }
-
-    protected DepartmentNotFoundException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
     }
 
     @Override
@@ -93,6 +88,19 @@ public class DepartmentNotFoundException extends Exception{
     @Override
     protected Object clone() throws CloneNotSupportedException {
         return super.clone();
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+    }
+
+    public DepartmentNotFoundException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
+    }
+
+    public String setMessage(String departmentNotFound) {
+        return "department Not Found";
     }
 }
 

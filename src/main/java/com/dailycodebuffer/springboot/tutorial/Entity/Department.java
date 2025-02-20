@@ -2,77 +2,84 @@ package com.dailycodebuffer.springboot.tutorial.Entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
 
 @Entity
-@Data
-/*@NoArgsConstructor
-@AllArgsConstructor*/
-@Builder
+@AllArgsConstructor
+
 public class Department {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long departmentId;
-    @NotBlank(message = "Please Enter the Department name")
-    private String departmentName;
-    @NotBlank(message = "please enter the address location")
-    private String departmentAddress;
-    @NotBlank(message = "Please Enter the Department Code")
-    @Column(unique = true)
-    private String departmentCode;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    @Override
-    public String toString() {
-        return "Department{" +
-                "departmentId=" + departmentId +
-                ", departmentName='" + departmentName + '\'' +
-                ", departmentAddress='" + departmentAddress + '\'' +
-                ", departmentCode='" + departmentCode + '\'' +
-                '}';
+    private Long id;
+    @NotBlank(message = "Please Enter the Department name")
+
+    private String name;
+    @NotBlank(message = "please enter the address location")
+
+    private String address;
+    @NotBlank(message = "Please Enter the Department Code")
+
+    private String code;
+    @CreationTimestamp
+    private LocalDateTime createDate;
+    @UpdateTimestamp
+    private LocalDateTime updateTime;
+    @Autowired
+    @OneToMany(mappedBy = "department")
+    private List<Employee> employees;
+
+    public LocalDateTime getUpdateTime() {
+        return updateTime;
+    }
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public @NotBlank(message = "Please Enter the Department name") String getName() {
+        return name;
     }
 
     public Department() {
     }
 
-    public Department(Long departmentId, String departmentName, String departmentAddress, String departmentCode) {
-        this.departmentId = departmentId;
-        this.departmentName = departmentName;
-        this.departmentAddress = departmentAddress;
-        this.departmentCode = departmentCode;
+    public void setName(@NotBlank(message = "Please Enter the Department name") String name) {
+        this.name =name;
     }
 
-    public Long getDepartmentId() {
-        return departmentId;
+    public @NotBlank(message = "please enter the address location") String getAddress() {
+        return address;
     }
 
-    public void setDepartmentId(Long departmentId) {
-        this.departmentId = departmentId;
+    public void setAddress(@NotBlank(message = "please enter the address location") String address) {
+        this.address = address;
     }
 
-    public String getDepartmentName() {
-        return departmentName;
+    public @NotBlank(message = "Please Enter the Department Code") String getCode() {
+        return code;
     }
 
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
+    public void setCode(@NotBlank(message = "Please Enter the Department Code") String code) {
+        this.code = code;
     }
 
-    public String getDepartmentAddress() {
-        return departmentAddress;
+    public Long getid() {
+        return id;
     }
 
-    public void setDepartmentAddress(String departmentAddress) {
-        this.departmentAddress = departmentAddress;
+    public LocalDateTime getCreateDate() {
+        return createDate;
+    }
+    public LocalDateTime getUpdatetime(){
+        return updateTime;
     }
 
-    public String getDepartmentCode() {
-        return departmentCode;
-    }
-
-    public void setDepartmentCode(String departmentCode) {
-        this.departmentCode = departmentCode;
-    }
 }
