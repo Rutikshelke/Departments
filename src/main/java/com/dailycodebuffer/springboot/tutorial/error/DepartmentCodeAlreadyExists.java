@@ -3,21 +3,24 @@ package com.dailycodebuffer.springboot.tutorial.error;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 
-public class DepartmentNotFoundException extends Exception{
-
-    public DepartmentNotFoundException() {
+public class DepartmentCodeAlreadyExists extends RuntimeException {
+    public DepartmentCodeAlreadyExists() {
     }
 
-    public DepartmentNotFoundException(String message) {
+    public DepartmentCodeAlreadyExists(String message) {
         super(message);
     }
 
-    public DepartmentNotFoundException(String message, Throwable cause) {
+    public DepartmentCodeAlreadyExists(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public DepartmentNotFoundException(Throwable cause) {
+    public DepartmentCodeAlreadyExists(Throwable cause) {
         super(cause);
+    }
+
+    public DepartmentCodeAlreadyExists(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
     }
 
     @Override
@@ -90,17 +93,4 @@ public class DepartmentNotFoundException extends Exception{
         return super.clone();
     }
 
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
-    }
-
-    public DepartmentNotFoundException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
-    }
-
-    public String setMessage(String departmentNotFound) {
-        return "department Not Found";
-    }
 }
-

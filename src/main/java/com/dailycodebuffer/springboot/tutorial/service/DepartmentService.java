@@ -10,11 +10,14 @@ public interface DepartmentService {
 
    public List<Department> fetchdepartment();
 
-  public Department fetchDepartmentById(Long departmentId) throws DepartmentNotFoundException;
+  public Department fetchDepartmentById(Long id) throws DepartmentNotFoundException;
 
-   public  void deleteDepartmentById(Long departmentId);
+   public  void deleteDepartmentById(Long id);
 
-   public  Department updateDepartmentById(Long departmentId, Department department);
+   public  Department updateDepartmentById(Long id, Department department);
 
-   public Department fetchDepartmentByName(String departmentName);
+
+     public  Department fetchDepartmentByDepartmentCode(String code);
+
 }
+

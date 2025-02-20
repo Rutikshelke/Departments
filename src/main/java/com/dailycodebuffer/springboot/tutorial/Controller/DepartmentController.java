@@ -12,21 +12,21 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-
 @RestController
+@RequestMapping("/departments")
 public class DepartmentController {
     @Autowired
     private DepartmentService departmentService;
-    private final Logger LOGGER=(Logger) LoggerFactory.getLogger(DepartmentController.class);
+    private final Logger LOGGER = (Logger) LoggerFactory.getLogger(DepartmentController.class);
 
 
-    @PostMapping("/departments")
-    public Department saveDepartment(@Valid@RequestBody Department department) {
-    LOGGER.info("inside saveDepartment of DepartmentController");
+    @PostMapping
+    public Department saveDepartment(@Valid @RequestBody Department department) {
+        LOGGER.info("inside saveDepartment of DepartmentController");
         return departmentService.saveDepartment(department);
     }
 
-    @GetMapping("/departments")
+    @GetMapping
     public List<Department> fetchDepartmentList() {
         LOGGER.info("inside fetchDepartmentList of DepartmentController");
 
@@ -34,33 +34,37 @@ public class DepartmentController {
 
     }
 
-    @GetMapping("departments/{id}")
-    public Department fetchDepartmentById(@PathVariable("id") Long departmentId) throws DepartmentNotFoundException {
+    @GetMapping("/{id}")
+    public Department fetchDepartmentById(@PathVariable("id") Long id) throws DepartmentNotFoundException {
         LOGGER.info("inside fetchDepartmentById of DepartmentController");
 
-        return departmentService.fetchDepartmentById(departmentId);
+        return departmentService.fetchDepartmentById(id);
 
     }
 
-    @DeleteMapping("departments/{id}")
-    public String deleteDepartmentById(@PathVariable("id") Long departmentId) {
+    @DeleteMapping("/{id}")
+    public String deleteDepartmentById(@PathVariable("id") Long id) {
         LOGGER.info("inside deleteDepartmentById of DepartmentController");
 
-        departmentService.deleteDepartmentById(departmentId);
+        departmentService.deleteDepartmentById(id);
         return "department Deleted Successfully";
     }
 
-    @PutMapping("departments/{id}")
-    public Department UpdateDepartmentById(@PathVariable("id") Long departmentId, @RequestBody Department department) {
+    @PutMapping("/{id}")
+    public Department UpdateDepartmentById(@PathVariable("id") Long id, @RequestBody Department department) {
         LOGGER.info("inside UpdateDepartmentById of DepartmentController");
 
-        return departmentService.updateDepartmentById(departmentId, department);
+
+        return departmentService.updateDepartmentById(id, department);
 
     }
-    @GetMapping("departments/name/{name}")
-    public Department fetchDepartmentByDepartmentName( @PathVariable ("name")String departmentName){
-        LOGGER.info("inside fetchDepartmentByDepartmentName of DepartmentController");
 
-        return departmentService.fetchDepartmentByName(departmentName);
+    @GetMapping("/departmentCode/{code}")
+    public Department fetchDepartmentByDepartmentCode(@PathVariable("code") String code) {
+        LOGGER.info("inside fetchDepartmentByDepartmentCode of DepartmentController");
 
-    }}
+        return departmentService.fetchDepartmentByDepartmentCode(code);
+    }
+
+}
+
